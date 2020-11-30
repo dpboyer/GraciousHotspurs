@@ -3,6 +3,19 @@
 <head>
   <meta charset="utf-8">
   <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
+    <style>
+        ul {
+          list-style-type: none;
+          margin: 0;
+          padding: 0;
+        }
+        header * {
+            display: inline;
+        }
+        header li {
+            margin: 5px;
+        }
+    </style>
 </head>
 <body>
   <main>
@@ -10,26 +23,27 @@
             <nav>
                 <ul>
                     <li>
-                        <a href="."> Home </a>
+                        <a href=".">Home</a>
                     </li>
                     <li>
-                        <a href="adduser"> Add User </a>
+                        <a href="adduser">Add User</a>
                     </li>
                     <li>
-                        <a href="deleteuser"> Delete User </a>
+                        <a href="deleteuser">Delete User</a>
                     </li>
                     <li>
-                        <a href="courses"> Courses </a>
+                        <a href="courses">Courses</a>
                     </li>
                     <li>
-                        <a href="account"> Account </a>
+                        <a href="account">Account</a>
                     </li>
                     <li>
-                        <a href=".."> Logout </a>
+                        <a href="..">Logout</a>
                     </li>
                 </ul>
             </nav>
     </header>
+    <br>
     {% block content %}
     {% endblock %}
   </main>

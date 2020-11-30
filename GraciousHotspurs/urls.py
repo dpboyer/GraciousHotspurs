@@ -20,10 +20,13 @@ from CS351_Project.views import Login, Home, AddUser
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('django.contrib.auth.urls')),
+    #path('accounts/', include('django.contrib.auth.urls')),
     #path('', TemplateView.as_view(template_name='home.html'), name='home')
     path('', Login.as_view()),
     path('home/', Home.as_view()),
     path('home/adduser', AddUser.as_view()),
+    #path('home/deleteuser', DeleteUser.as_view()),
+    #path('home/courses', Courses.as_view()),
+    #path('home/account', AddUser.as_view()),
 
 ]
