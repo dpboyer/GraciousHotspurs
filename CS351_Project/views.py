@@ -1,8 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login
-from .forms import CoursesForm
-from .models import MyUser, Course
+from django.contrib.auth.models import User
+from .forms import UserForm, CoursesForm
+from .models import Instructor, Course
 
 # Create your views here.
 
@@ -39,35 +40,57 @@ class Home(View):
 
 class AddUser(View):
     def get(self, request):
-        users = map(str, list(MyUser.objects.all()))
-        return render(request, "adduser.html", {"users": users})
+        form = UserForm()
+        users = map(str, list(User.objects.all()))
+        return render(request, 'adduser.html', {"form": form, "users": users})
 
     def post(self, request):
-        name = request.POST.get("name","")
-        password = request.POST.get("password","")
-        if name & password != "":
-            newUser = MyUser(name=name, password=password)
+        form = UserForm(request.POST)
+        if form.is_valid():
+            # assigns field data from form to variables
+            usern = form.cleaned_data['username']
+            passw = form.cleaned_data['password']
+            first = form.cleaned_data['first_name']
+            last = form.cleaned_data['last_name']
+            eml = form.cleaned_data['email']
+            phn = form.cleaned_data['phone_number']
+
+            # vvv For debugging
+            print(usern, passw, first, last, eml, phn)
+
+            # assigns attributes to a User object and saves it to the database
+            newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml) #phone_number=phn)
             newUser.save()
 
-        users = map(str, list(MyUser.objects.all()))
-
-        return render(request, "adduser.html", {"users": users})
+            # gives a list of all current User objects
+            users = map(str, list(User.objects.all()))
+            return render(request, 'adduser.html', {"form": form, "users": users})
+        else:
+            return render(request, 'adduser.html', {"form": form})
 
 # vvv Referenced: https://www.educba.com/django-forms/
 class Courses(View):
     def get(self, request):
         form = CoursesForm()
+        courses = map(str, list(Course.objects.all()))
         return render(request, 'courses.html', {"form": form})
 
     def post(self, request):
-        course = CoursesForm(request.POST)
-        if course.is_valid():
-            #print("Department: ", course.cleaned_data['department'])
-            #print("Course Num: ", course.cleaned_data['course_num'])
-            d = course.cleaned_data['department']
-            c = course.cleaned_data['course_num']
-            newCourse = Course(department=d, course_num=c)
+        form = CoursesForm(request.POST)
+        if form.is_valid():
+            # assigns field data from form to variables
+            dept = form.cleaned_data['department']
+            crse = form.cleaned_data['course_num']
+
+            # vvv For debugging
+            print(dept, crse)
+
+            # assigns attributes to a Course object and saves it to the database
+            newCourse = Course(department=dept, course_num=crse)
             newCourse.save()
 
+            # gives a list of all current Course objects
             courses = map(str, list(Course.objects.all()))
-        return render(request, 'courses.html', {"form":course, "courses": courses})
+            return render(request, 'courses.html', {"form": form, "courses": courses})
+        else:
+            return render(request, 'courses.html', {"form": form})

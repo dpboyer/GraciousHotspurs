@@ -1,7 +1,9 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
 
+# *** MyUser will be refactored
 class MyUser(models.Model):
     name = models.CharField(max_length=20)
     password = models.CharField(max_length=20)
@@ -13,6 +15,10 @@ class MyUser(models.Model):
 
     def __str__(self):
         return self.name + self.password
+
+class Instructor(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, )
+    phone_number = models.CharField(max_length=20)
 
 class Course(models.Model):
     department = models.CharField(max_length=20)

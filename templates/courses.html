@@ -8,11 +8,11 @@
         You can add, delete and view courses here...
         {{ form.as_p }}
         {% csrf_token %}
-        <input type="submit">
+        <input type="submit", name="addCourse">
     </form>
-
+    Current list of courses:
     {% for i in courses %}
-        {{ i }}<br/>
+        <br/>{{ i }}
     {% endfor %}
 
 {% endblock %}
