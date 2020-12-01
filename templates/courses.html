@@ -4,6 +4,15 @@
 
 {% block content %}
 
-    You can add, delete and view courses here...
+    <form method="post">
+        You can add, delete and view courses here...
+        {{ form.as_p }}
+        {% csrf_token %}
+        <input type="submit">
+    </form>
+
+    {% for i in courses %}
+        {{ i }}<br/>
+    {% endfor %}
 
 {% endblock %}

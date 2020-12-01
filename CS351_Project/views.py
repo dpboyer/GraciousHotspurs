@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login
-from .models import MyUser
+from .forms import CoursesForm
+from .models import MyUser, Course
 
 # Create your views here.
 
@@ -51,3 +52,22 @@ class AddUser(View):
         users = map(str, list(MyUser.objects.all()))
 
         return render(request, "adduser.html", {"users": users})
+
+# vvv Referenced: https://www.educba.com/django-forms/
+class Courses(View):
+    def get(self, request):
+        form = CoursesForm()
+        return render(request, 'courses.html', {"form": form})
+
+    def post(self, request):
+        course = CoursesForm(request.POST)
+        if course.is_valid():
+            #print("Department: ", course.cleaned_data['department'])
+            #print("Course Num: ", course.cleaned_data['course_num'])
+            d = course.cleaned_data['department']
+            c = course.cleaned_data['course_num']
+            newCourse = Course(department=d, course_num=c)
+            newCourse.save()
+
+            courses = map(str, list(Course.objects.all()))
+        return render(request, 'courses.html', {"form":course, "courses": courses})

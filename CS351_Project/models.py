@@ -13,3 +13,8 @@ class MyUser(models.Model):
 
     def __str__(self):
         return self.name + self.password
+
+class Course(models.Model):
+    department = models.CharField(max_length=20)
+    course_num = models.CharField(max_length=3)
+
