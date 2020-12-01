@@ -11,7 +11,10 @@ class MyUser(models.Model):
         return self.name + self.password
 
 
-#Simple Course Model with the option to add instructor which is represented by a MyUser object
+
+
+
+# Simple Course Model with the option to add instructor which is represented by a MyUser object
 class Course(models.Model):
     course_name = models.CharField(max_length=20)
     instructor = models.ForeignKey(MyUser, on_delete=models.CASCADE)
@@ -20,7 +23,7 @@ class Course(models.Model):
         return self.course_name
 
 
-#Section includes TAs and Course
+# Section includes TAs and Course
 class Section(models.Model):
     section_number = models.IntegerField(max_length=3)
     course = models.ForeignKey(Course, on_delete=models.CASCADE)
