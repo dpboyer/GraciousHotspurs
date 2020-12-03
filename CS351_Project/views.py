@@ -84,7 +84,7 @@ class Courses(View):
         if form.is_valid():
             # assigns field data from form to variables
             dept = form.cleaned_data['department']
-            crse = form.cleaned_data['course_num']
+            crse = form.cleaned_data['course_number']
 
             # vvv For debugging
             print(dept, crse)
@@ -111,7 +111,7 @@ class Sections(View):
         if form.is_valid():
             # assigns field data from form to variables
             crse = form.cleaned_data['course']
-            sect = form.cleaned_data['section_num']
+            sect = form.cleaned_data['section_number']
 
             # vvv For debugging
             print(crse, sect)
