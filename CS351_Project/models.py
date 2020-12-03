@@ -17,10 +17,16 @@ class MyUser(models.Model):
         return self.name + self.password
 
 class Instructor(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True, )
+    user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
     phone_number = models.CharField(max_length=20)
 
 class Course(models.Model):
+    #course_key = models.CharField(max_length=20, primary_key=True, default='')
     department = models.CharField(max_length=20)
     course_num = models.CharField(max_length=3)
+
+
+class Section(models.Model):
+    course = models.ForeignKey(to="Course", on_delete=models.CASCADE)
+    section_num = models.CharField(max_length=3)
 

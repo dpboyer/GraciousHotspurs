@@ -2,14 +2,15 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from .forms import UserForm, CoursesForm
-from .models import Instructor, Course
+from .forms import UserForm, CoursesForm, SectionsForm
+from .models import Instructor, Course, Section
 
 # Create your views here.
 
 # *** ADMIN/SUPERUSER LOGIN ***
 # username: admin
 # password: admin
+
 
 class Login(View):
     def get(self, request):
@@ -31,12 +32,14 @@ class Login(View):
             fail_message = "username or password is invalid"
             return render(request, "login2.html",{"fail_message": fail_message})
 
+
 class Home(View):
     def get(self, request):
         return render(request, "home2.html", {})
 
     def post(self, request):
         return render(request, "home2.html", {})
+
 
 class AddUser(View):
     def get(self, request):
@@ -68,12 +71,13 @@ class AddUser(View):
         else:
             return render(request, 'adduser.html', {"form": form})
 
+
 # vvv Referenced: https://www.educba.com/django-forms/
 class Courses(View):
     def get(self, request):
         form = CoursesForm()
         courses = map(str, list(Course.objects.all()))
-        return render(request, 'courses.html', {"form": form})
+        return render(request, 'courses.html', {"form": form, "courses": courses})
 
     def post(self, request):
         form = CoursesForm(request.POST)
@@ -94,3 +98,30 @@ class Courses(View):
             return render(request, 'courses.html', {"form": form, "courses": courses})
         else:
             return render(request, 'courses.html', {"form": form})
+
+
+class Sections(View):
+    def get(self, request):
+        form = SectionsForm()
+        sections = map(str, list(Section.objects.all()))
+        return render(request, 'sections.html', {"form": form, "sections": sections})
+
+    def post(self, request):
+        form = SectionsForm(request.POST)
+        if form.is_valid():
+            # assigns field data from form to variables
+            crse = form.cleaned_data['course']
+            sect = form.cleaned_data['section_num']
+
+            # vvv For debugging
+            print(crse, sect)
+
+            # assigns attributes to a Course object and saves it to the database
+            newSection = Section(course=crse, section_num=sect)
+            newSection.save()
+
+            # gives a list of all current Course objects
+            sections = map(str, list(Section.objects.all()))
+            return render(request, 'sections.html', {"form": form, "sections": sections})
+        else:
+            return render(request, 'sections.html', {"form": form})
