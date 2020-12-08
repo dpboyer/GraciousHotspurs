@@ -117,9 +117,6 @@ class DelCourse(View):
             courses = map(str, list(Course.objects.all()))
             return render(request, 'delcourse.html', {"form": form, "courses": courses})
 
-            # gives a list of all current Course objects
-            courses = map(str, list(Course.objects.all()))
-            return render(request, 'delcourse.html', {"form": form, "courses": courses})
         else:
             return render(request, 'delcourse.html', {"form": form})
 
