@@ -2,8 +2,8 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from .forms import UserForm, CoursesForm, CoursesDeleteForm, SectionsForm, SectionsDeleteForm
-from .models import Instructor, Course, Section
+from .forms import UserForm, CoursesForm, CoursesDeleteForm, SectionsForm, SectionsDeleteForm, AccountForm
+from .models import Instructor, Course, Section, TA
 
 # Create your views here.
 
@@ -40,6 +40,26 @@ class Home(View):
     def post(self, request):
         return render(request, "home2.html", {})
 
+class Account(View):
+    def get(self, request):
+        form = AccountForm()
+        return render(request, "account.html", {"form": form})
+
+    def post(self, request):
+        form = AccountForm(request.POST)
+        if form.is_valid():
+            # assigns field data from form to variables
+            phone = form.cleaned_data['phone_number']
+            hours = form.cleaned_data['office_hours']
+            number = form.cleaned_data['office_number']
+            location = form.cleaned_data['office_location']
+
+            currentUser = request.user
+
+            return render(request, 'account.html', {"form": form})
+        else:
+            return render(request, 'account.html', {"form": form})
+
 
 class AddUser(View):
     def get(self, request):
@@ -56,14 +76,22 @@ class AddUser(View):
             first = form.cleaned_data['first_name']
             last = form.cleaned_data['last_name']
             eml = form.cleaned_data['email']
-            phn = form.cleaned_data['phone_number']
 
             # vvv For debugging
-            print(usern, passw, first, last, eml, phn)
+            #print(usern, passw, first, last, eml,)
 
             # assigns attributes to a User object and saves it to the database
-            newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml) #phone_number=phn)
-            newUser.save()
+            if request.POST['selection'] == 'addTA':
+                newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml)
+                newUser.save()
+                newTA = TA(user = newUser)
+                newTA.save()
+            elif request.POST['selection'] == 'addInstructor':
+                newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml)
+                newUser.save()
+                newInstructor= Instructor(user = newUser)
+                newInstructor.save()
+
 
             # gives a list of all current User objects
             users = map(str, list(User.objects.all()))

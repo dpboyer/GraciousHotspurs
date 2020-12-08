@@ -22,4 +22,10 @@ class UserForm(forms.Form):
     first_name = forms.CharField(max_length=20)
     last_name = forms.CharField(max_length=20)
     email = forms.CharField(max_length=20)
+
+class AccountForm(forms.Form):
     phone_number = forms.CharField(max_length=20)
+    office_hours = forms.CharField(max_length=20)
+    office_number = forms.CharField(max_length=20)
+    office_location = forms.CharField(max_length=20)
+

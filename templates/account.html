@@ -6,4 +6,12 @@
 
     You can edit and view your personal information here...
 
+    <form method="post">
+        You can add, delete and view users here...
+        {{ form.as_p }}
+        {% csrf_token %}
+
+        <input type="submit", name="submit">
+    </form>
+
 {% endblock %}
