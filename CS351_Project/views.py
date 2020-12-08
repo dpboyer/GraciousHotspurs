@@ -50,8 +50,6 @@ class Home(View):
 @method_decorator(decorators, name='get')
 class Account(View):
     def get(self, request):
-        if not request.user.is_authenticated:
-            return redirect("")
         form = AccountForm()
         return render(request, "account.html", {"form": form})
 
@@ -88,10 +86,8 @@ class AddUser(View):
             last = form.cleaned_data['last_name']
             eml = form.cleaned_data['email']
 
-            # vvv For debugging
-            #print(usern, passw, first, last, eml,)
-
             # assigns attributes to a User object and saves it to the database
+            # also assigns created User attributes of TA or Instructor object and saves it to the database
             if request.POST['selection'] == 'addTA':
                 newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml)
                 newUser.save()
