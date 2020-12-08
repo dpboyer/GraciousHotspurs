@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.views import View
 from django.contrib.auth import authenticate, login
 from django.contrib.auth.models import User
-from .forms import UserForm, CoursesForm, SectionsForm
+from .forms import UserForm, CoursesForm, CoursesDeleteForm, SectionsForm, SectionsDeleteForm
 from .models import Instructor, Course, Section
 
 # Create your views here.
@@ -100,6 +100,30 @@ class Courses(View):
             return render(request, 'courses.html', {"form": form})
 
 
+class DelCourse(View):
+    def get(self, request):
+        form = CoursesDeleteForm()
+        courses = map(str, list(Course.objects.all()))
+        return render(request, 'delcourse.html', {"form": form, "courses": courses})
+
+    def post(self, request):
+        form = CoursesDeleteForm(request.POST)
+        if form.is_valid():
+            # assigns field data from form to variables
+            crse = form.cleaned_data['course_number']
+
+            # deletes selected course and displays updated list
+            crse.delete()
+            courses = map(str, list(Course.objects.all()))
+            return render(request, 'delcourse.html', {"form": form, "courses": courses})
+
+            # gives a list of all current Course objects
+            courses = map(str, list(Course.objects.all()))
+            return render(request, 'delcourse.html', {"form": form, "courses": courses})
+        else:
+            return render(request, 'delcourse.html', {"form": form})
+
+
 class Sections(View):
     def get(self, request):
         form = SectionsForm()
@@ -125,3 +149,22 @@ class Sections(View):
             return render(request, 'sections.html', {"form": form, "sections": sections})
         else:
             return render(request, 'sections.html', {"form": form})
+
+
+class DelSection(View):
+    def get(self, request):
+        form = SectionsDeleteForm()
+        sections = map(str, list(Section.objects.all()))
+        return render(request, 'delsection.html', {"form": form, "sections": sections})
+
+    def post(self, request):
+        form = SectionsDeleteForm(request.POST)
+
+        if form.is_valid():
+            sect = form.cleaned_data['section_number']
+
+            sect.delete()
+            sections = map(str, list(Section.objects.all()))
+            return render(request, 'delsection.html', {"form": form, "sections": sections})
+        else:
+            return render(request, 'delsection.html', {"form": form})
