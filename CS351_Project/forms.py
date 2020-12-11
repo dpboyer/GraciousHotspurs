@@ -18,7 +18,7 @@ class SectionsDeleteForm(forms.Form):
 
 class UserForm(forms.Form):
     username = forms.CharField(max_length=20)
-    password = forms.CharField(max_length=20)
+    password = forms.CharField(widget=forms.PasswordInput)
     first_name = forms.CharField(max_length=20)
     last_name = forms.CharField(max_length=20)
     email = forms.CharField(max_length=20)
