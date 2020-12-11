@@ -16,20 +16,20 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.views.generic.base import TemplateView
-from CS351_Project.views import Login, Home, AddUser, Courses, DelCourse, Sections, DelSection, Account
+from CS351_Project.views import Login, Home, AddUser, Courses, DelCourse, Sections, DelSection, Account, Syllabus
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    #path('accounts/', include('django.contrib.auth.urls')),
-    #path('', TemplateView.as_view(template_name='home.html'), name='home')
     path('', Login.as_view()),
     path('home/', Home.as_view()),
     path('home/adduser', AddUser.as_view()),
-    #path('home/deleteuser', DeleteUser.as_view()),
     path('home/courses', Courses.as_view()),
     path('home/delcourse',DelCourse.as_view()),
     path('home/sections', Sections.as_view()),
     path('home/delsection', DelSection.as_view()),
     path('home/account', Account.as_view()),
-
+    path('syllabus/<int:course>/<int:section>', Syllabus.as_view())
+    #path('home/deleteuser', DeleteUser.as_view()),
+    #path('accounts/', include('django.contrib.auth.urls')),
+    #path('', TemplateView.as_view(template_name='home.html'), name='home')
 ]

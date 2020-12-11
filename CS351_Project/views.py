@@ -193,3 +193,17 @@ class DelSection(View):
             return render(request, 'delsection.html', {"form": form, "sections": sections})
         else:
             return render(request, 'delsection.html', {"form": form})
+
+
+class Syllabus(View):
+    def get(self, request, *args, **kwargs):
+        course_value = kwargs['course']
+        section_value = kwargs['section']
+        syllabus_data = self.get_syllabus(course_value,section_value)
+        return render(request, "syllabus.html", {'syllabus': syllabus_data})
+
+    def get_syllabus(self, course, section):
+        course_instance = Course.objects.filter(course_num=course)
+        section_instance = Section.objects.filter(section_num=section, course=course_instance)
+        return {'found': False}
+
