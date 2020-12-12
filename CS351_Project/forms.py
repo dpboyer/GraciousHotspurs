@@ -1,7 +1,8 @@
 from django import forms
-from .models import Course, Section
+from .models import Course, Section, Instructor, TA
 
 class CoursesForm(forms.Form):
+    instructor = forms.ModelChoiceField(queryset=Instructor.objects.all())
     department = forms.CharField(max_length=20)
     course_number = forms.CharField(max_length=3)
 
@@ -9,6 +10,7 @@ class CoursesDeleteForm(forms.Form):
     course_number = forms.ModelChoiceField(queryset=Course.objects.all())
 
 class SectionsForm(forms.Form):
+    teachingAssistant = forms.ModelChoiceField(queryset=TA.objects.all())
     course = forms.ModelChoiceField(queryset=Course.objects.all())
     section_number = forms.CharField(max_length=3)
 

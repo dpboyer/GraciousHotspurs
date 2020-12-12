@@ -113,12 +113,10 @@ class Courses(View):
             # assigns field data from form to variables
             dept = form.cleaned_data['department']
             crse = form.cleaned_data['course_number']
-
-            # vvv For debugging
-            print(dept, crse)
+            instructor = form.cleaned_data['instructor']
 
             # assigns attributes to a Course object and saves it to the database
-            newCourse = Course(department=dept, course_num=crse)
+            newCourse = Course(department=dept, course_num=crse, instructor=instructor)
             newCourse.save()
 
             # gives a list of all current Course objects
@@ -161,12 +159,10 @@ class Sections(View):
             # assigns field data from form to variables
             crse = form.cleaned_data['course']
             sect = form.cleaned_data['section_number']
-
-            # vvv For debugging
-            print(crse, sect)
+            teachingAssistant = form.cleaned_data['teachingAssistant']
 
             # assigns attributes to a Course object and saves it to the database
-            newSection = Section(course=crse, section_num=sect)
+            newSection = Section(course=crse, section_num=sect, teachingAssistant=teachingAssistant)
             newSection.save()
 
             # gives a list of all current Course objects
