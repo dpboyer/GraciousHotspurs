@@ -6,7 +6,9 @@
 
     <form method="post">
         You can add and view courses here...
-        {{ form.as_p }}
+        <table>
+            {{ form.as_table }}
+        </table>
         {% csrf_token %}
         <input type="submit", name="addCourse">
     </form>

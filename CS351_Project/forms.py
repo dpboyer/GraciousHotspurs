@@ -15,7 +15,6 @@ class SectionsForm(forms.Form):
     section_number = forms.CharField(max_length=3)
 
 class SectionsDeleteForm(forms.Form):
-    course = forms.ModelChoiceField(queryset=Course.objects.all())
     section_number = forms.ModelChoiceField(queryset=Section.objects.all())
 
 class UserForm(forms.Form):

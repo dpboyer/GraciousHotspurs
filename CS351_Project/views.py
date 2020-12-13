@@ -181,8 +181,7 @@ class Sections(View):
             newSection = Section(course=crse, section_num=sect, teachingAssistant=teachingAssistant)
             newSection.save()
 
-            # gives a list of all current Course objects
-            #sections = map(str, list(Section.objects.all()))
+            # gives a list of all current Section objects
             sections = Section.objects.all()
             return render(request, 'sections.html', {"form": form, "sections": sections})
         else:

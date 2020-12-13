@@ -6,10 +6,12 @@
 
     <form method="post">
         You can add and view users here...
-        {{ form.as_p }}
+        <table>
+            {{ form.as_table }}
+        </table>
         {% csrf_token %}
-        Create Instructor <input type="submit", name="selection", value ="addInstructor">
-        Create TA <input type="submit", name="selection" value ="addTA">
+        <input type="submit", name="selection", value ="Add as Instructor">
+        <input type="submit", name="selection" value ="Add as TA">
     </form>
     <br/>
 

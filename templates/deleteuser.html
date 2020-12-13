@@ -4,18 +4,13 @@
 
 {% block content %}
 
-    Insert addUser form here...
+    Insert deleteUser form here...
     <form action="/", method="post">
         {% csrf_token %}
         <table>
-            <tr><td>username: </td><td><input type="text" name="username"></td></tr>
-            <tr><td>password: </td><td><input type="password" name="password"></td></tr>
-            <tr><td>first name: </td><td><input type="text" name="first_name"></td></tr>
-            <tr><td>last name: </td><td><input type="text" name="last_name"></td></tr>
-            <tr><td>email: </td><td><input type="text" name="email"></td></tr>
-            <tr><td>phone number: </td><td><input type="text" name="phone_number"></td></tr>
+            {{ form.as_table }}
         </table>
-        <button type="submit">Add a new User</button>
+        <button type="submit">Delete User</button>
     </form>
 
 {% endblock %}
