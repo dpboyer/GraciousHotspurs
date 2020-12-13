@@ -10,7 +10,7 @@ class CoursesDeleteForm(forms.Form):
     course_number = forms.ModelChoiceField(queryset=Course.objects.all())
 
 class SectionsForm(forms.Form):
-    teachingAssistant = forms.ModelChoiceField(queryset=TA.objects.all())
+    teaching_assistant = forms.ModelChoiceField(queryset=TA.objects.all())
     course = forms.ModelChoiceField(queryset=Course.objects.all())
     section_number = forms.CharField(max_length=3)
 
