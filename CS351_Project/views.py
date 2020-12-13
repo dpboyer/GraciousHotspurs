@@ -169,7 +169,7 @@ class Sections(View):
             # assigns field data from form to variables
             crse = form.cleaned_data['course']
             sect = form.cleaned_data['section_number']
-            teachingAssistant = form.cleaned_data['teachingAssistant']
+            teachingAssistant = form.cleaned_data['teaching_assistant']
 
             # assigns attributes to a Course object and saves it to the database
             newSection = Section(course=crse, section_num=sect, teachingAssistant=teachingAssistant)
