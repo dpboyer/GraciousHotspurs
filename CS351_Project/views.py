@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
 from django.views import View
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.utils.decorators import method_decorator
 from .forms import UserForm, CoursesForm, CoursesDeleteForm, SectionsForm, SectionsDeleteForm, AccountForm
 from .models import Instructor, Course, Section, TA
 
@@ -11,9 +13,11 @@ from .models import Instructor, Course, Section, TA
 # username: admin
 # password: admin
 
+decorators = [login_required]
 
 class Login(View):
     def get(self, request):
+        logout(request)
         request.session["user"] = ""
         return render(request, "login2.html", {})
 
@@ -21,11 +25,12 @@ class Login(View):
     def post(self, request):
         username = request.POST["name"]
         password = request.POST["password"]
-        user = authenticate(username=username, password=password)
+        user = authenticate(request, username=username, password=password)
         if user is not None:
             # login succeeds, redirects to homepage
             request.session["user"] = request.POST["name"]
-            #login(request, user)
+            login(request, user)
+            print(request.user)
             return redirect("/home/")
         else:
             # login fails, credentials are incorrect
@@ -33,6 +38,7 @@ class Login(View):
             return render(request, "login2.html",{"fail_message": fail_message})
 
 
+@method_decorator(decorators, name='get')
 class Home(View):
     def get(self, request):
         return render(request, "home2.html", {})
@@ -40,6 +46,8 @@ class Home(View):
     def post(self, request):
         return render(request, "home2.html", {})
 
+
+@method_decorator(decorators, name='get')
 class Account(View):
     def get(self, request):
         form = AccountForm()
@@ -61,6 +69,7 @@ class Account(View):
             return render(request, 'account.html', {"form": form})
 
 
+@method_decorator(decorators, name='get')
 class AddUser(View):
     def get(self, request):
         form = UserForm()
@@ -77,10 +86,8 @@ class AddUser(View):
             last = form.cleaned_data['last_name']
             eml = form.cleaned_data['email']
 
-            # vvv For debugging
-            #print(usern, passw, first, last, eml,)
-
             # assigns attributes to a User object and saves it to the database
+            # also assigns created User attributes of TA or Instructor object and saves it to the database
             if request.POST['selection'] == 'addTA':
                 newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml)
                 newUser.save()
@@ -101,6 +108,7 @@ class AddUser(View):
 
 
 # vvv Referenced: https://www.educba.com/django-forms/
+@method_decorator(decorators, name='get')
 class Courses(View):
     def get(self, request):
         form = CoursesForm()
@@ -126,6 +134,7 @@ class Courses(View):
             return render(request, 'courses.html', {"form": form})
 
 
+@method_decorator(decorators, name='get')
 class DelCourse(View):
     def get(self, request):
         form = CoursesDeleteForm()
@@ -147,6 +156,7 @@ class DelCourse(View):
             return render(request, 'delcourse.html', {"form": form})
 
 
+@method_decorator(decorators, name='get')
 class Sections(View):
     def get(self, request):
         form = SectionsForm()
@@ -172,6 +182,7 @@ class Sections(View):
             return render(request, 'sections.html', {"form": form})
 
 
+@method_decorator(decorators, name='get')
 class DelSection(View):
     def get(self, request):
         form = SectionsDeleteForm()
