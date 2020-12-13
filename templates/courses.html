@@ -5,14 +5,26 @@
 {% block content %}
 
     <form method="post">
-        You can add, delete and view courses here...
+        You can add and view courses here...
         {{ form.as_p }}
         {% csrf_token %}
         <input type="submit", name="addCourse">
     </form>
-    Current list of courses:
-    {% for i in courses %}
-        <br/>{{ i }}
-    {% endfor %}
+    <br/>
+
+    <table>
+        <tr>
+            <th>Department</th>
+            <th>Course #</th>
+            <th>Instructor</th>
+        </tr>
+        {% for i in courses %}
+            <tr>
+                <td>{{ i.department }}</td>
+                <td>{{ i.course_num }}</td>
+                <td>{{ i.instructor }}</td>
+            </tr>
+        {% endfor %}
+    </table>
 
 {% endblock %}

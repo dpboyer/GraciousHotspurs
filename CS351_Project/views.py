@@ -73,8 +73,11 @@ class Account(View):
 class AddUser(View):
     def get(self, request):
         form = UserForm()
-        users = map(str, list(User.objects.all()))
-        return render(request, 'adduser.html', {"form": form, "users": users})
+        users = User.objects.all()
+        instructors = Instructor.objects.all()
+        tas = TA.objects.all()
+        return render(request, 'adduser.html', {"form": form, "users": users, "instructors": instructors,
+                                                    "teachingAssistants": tas})
 
     def post(self, request):
         form = UserForm(request.POST)
@@ -88,21 +91,24 @@ class AddUser(View):
 
             # assigns attributes to a User object and saves it to the database
             # also assigns created User attributes of TA or Instructor object and saves it to the database
-            if request.POST['selection'] == 'addTA':
-                newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml)
-                newUser.save()
-                newTA = TA(user = newUser)
-                newTA.save()
-            elif request.POST['selection'] == 'addInstructor':
+
+            if request.POST['selection'] == 'addInstructor':
                 newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml)
                 newUser.save()
                 newInstructor= Instructor(user = newUser)
                 newInstructor.save()
-
+            elif request.POST['selection'] == 'addTA':
+                newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml)
+                newUser.save()
+                newTA = TA(user = newUser)
+                newTA.save()
 
             # gives a list of all current User objects
-            users = map(str, list(User.objects.all()))
-            return render(request, 'adduser.html', {"form": form, "users": users})
+            users = User.objects.all()
+            instructors = Instructor.objects.all()
+            tas = TA.objects.all()
+            return render(request, 'adduser.html', {"form": form, "users": users, "instructors": instructors,
+                                                    "teachingAssistants": tas})
         else:
             return render(request, 'adduser.html', {"form": form})
 
@@ -112,7 +118,7 @@ class AddUser(View):
 class Courses(View):
     def get(self, request):
         form = CoursesForm()
-        courses = map(str, list(Course.objects.all()))
+        courses = Course.objects.all()
         return render(request, 'courses.html', {"form": form, "courses": courses})
 
     def post(self, request):
@@ -128,7 +134,7 @@ class Courses(View):
             newCourse.save()
 
             # gives a list of all current Course objects
-            courses = map(str, list(Course.objects.all()))
+            courses = Course.objects.all()
             return render(request, 'courses.html', {"form": form, "courses": courses})
         else:
             return render(request, 'courses.html', {"form": form})
@@ -138,7 +144,7 @@ class Courses(View):
 class DelCourse(View):
     def get(self, request):
         form = CoursesDeleteForm()
-        courses = map(str, list(Course.objects.all()))
+        courses = Course.objects.all()
         return render(request, 'delcourse.html', {"form": form, "courses": courses})
 
     def post(self, request):
@@ -149,7 +155,7 @@ class DelCourse(View):
 
             # deletes selected course and displays updated list
             crse.delete()
-            courses = map(str, list(Course.objects.all()))
+            courses = Course.objects.all()
             return render(request, 'delcourse.html', {"form": form, "courses": courses})
 
         else:
@@ -160,7 +166,7 @@ class DelCourse(View):
 class Sections(View):
     def get(self, request):
         form = SectionsForm()
-        sections = map(str, list(Section.objects.all()))
+        sections = Section.objects.all()
         return render(request, 'sections.html', {"form": form, "sections": sections})
 
     def post(self, request):
@@ -176,7 +182,8 @@ class Sections(View):
             newSection.save()
 
             # gives a list of all current Course objects
-            sections = map(str, list(Section.objects.all()))
+            #sections = map(str, list(Section.objects.all()))
+            sections = Section.objects.all()
             return render(request, 'sections.html', {"form": form, "sections": sections})
         else:
             return render(request, 'sections.html', {"form": form})
@@ -186,7 +193,7 @@ class Sections(View):
 class DelSection(View):
     def get(self, request):
         form = SectionsDeleteForm()
-        sections = map(str, list(Section.objects.all()))
+        sections = Section.objects.all()
         return render(request, 'delsection.html', {"form": form, "sections": sections})
 
     def post(self, request):
@@ -196,7 +203,7 @@ class DelSection(View):
             sect = form.cleaned_data['section_number']
 
             sect.delete()
-            sections = map(str, list(Section.objects.all()))
+            sections = Section.objects.all()
             return render(request, 'delsection.html', {"form": form, "sections": sections})
         else:
             return render(request, 'delsection.html', {"form": form})
