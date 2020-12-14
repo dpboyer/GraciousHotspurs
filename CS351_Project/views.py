@@ -51,7 +51,10 @@ class Home(View):
 class Account(View):
     def get(self, request):
         form = AccountForm()
-        return render(request, "account.html", {"form": form})
+        currentUser = request.user
+        currentTA = TA.objects.get(user=currentUser)
+        print(currentTA.phone_number, currentTA.office_hour, currentTA.office_number, currentTA.office_location)
+        return render(request, "account.html", {"form": form, "taInfo": currentTA})
 
     def post(self, request):
         form = AccountForm(request.POST)
@@ -62,11 +65,31 @@ class Account(View):
             number = form.cleaned_data['office_number']
             location = form.cleaned_data['office_location']
 
+            # retrieves TA object of current User
             currentUser = request.user
+            currentTA = TA.objects.get(user=currentUser)
 
-            return render(request, 'account.html', {"form": form})
+            # guarantees that current values are NOT changed if no new value entered in a field
+            if self.field_not_empty(phone):
+                currentTA.phone_number = phone
+            if self.field_not_empty(hours):
+                currentTA.office_hour = hours
+            if self.field_not_empty(number):
+                currentTA.office_number = number
+            if self.field_not_empty(location):
+                currentTA.office_location = location
+
+            currentTA.save()
+
+            return render(request, 'account.html', {"form": form, "taInfo": currentTA})
         else:
             return render(request, 'account.html', {"form": form})
+
+    # if a passed field is empty, return false. Otherwise, true.
+    def field_not_empty(self, field):
+        if field == '':
+            return False
+        return True
 
 
 @method_decorator(decorators, name='get')

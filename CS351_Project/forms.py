@@ -25,8 +25,8 @@ class UserForm(forms.Form):
     email = forms.CharField(max_length=20)
 
 class AccountForm(forms.Form):
-    phone_number = forms.CharField(max_length=20)
-    office_hours = forms.CharField(max_length=20)
-    office_number = forms.CharField(max_length=20)
-    office_location = forms.CharField(max_length=20)
+    phone_number = forms.CharField(max_length=20, required=False)
+    office_hours = forms.CharField(max_length=20, required=False)
+    office_number = forms.CharField(max_length=20, required=False)
+    office_location = forms.CharField(max_length=20, required=False)
 
