@@ -159,12 +159,12 @@ class AddUser(View):
             # assigns attributes to a User object and saves it to the database
             # also assigns created User attributes of TA or Instructor object and saves it to the database
 
-            if request.POST['selection'] == 'addInstructor':
+            if request.POST['selection'] == 'Add as Instructor':
                 newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml)
                 newUser.save()
                 newInstructor= Instructor(user = newUser)
                 newInstructor.save()
-            elif request.POST['selection'] == 'addTA':
+            elif request.POST['selection'] == 'Add as TA':
                 newUser = User(username=usern, password=passw, first_name=first, last_name=last, email=eml)
                 newUser.save()
                 newTA = TA(user = newUser)
