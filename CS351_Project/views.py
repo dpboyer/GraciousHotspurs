@@ -122,7 +122,7 @@ class Account(View):
                         currentInstr.office_location = location
 
                     currentInstr.save()
-                except Instr.DoesNotExist:
+                except Instructor.DoesNotExist:
                     currentInstr = None
 
             return render(request, 'account.html', {"form": form, "taInfo": currentTA, "instrInfo": currentInstr})
