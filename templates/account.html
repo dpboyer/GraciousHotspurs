@@ -15,6 +15,7 @@
         <input type="submit", name="submit", value="Save">
     </form>
 
+
     <h3>Current Information</h3>
     <table>
         <tr>
@@ -23,12 +24,21 @@
             <th>Office #</th>
             <th>Office Location</th>
         </tr>
-        <tr>
-            <td>{{ taInfo.phone_number }}</td>
-            <td>{{ taInfo.office_hour }}</td>
-            <td>{{ taInfo.office_number }}</td>
-            <td>{{ taInfo.office_location }}</td>
-        </tr>
+        {% if taInfo != None %}
+            <tr>
+                <td>{{ taInfo.phone_number }}</td>
+                <td>{{ taInfo.office_hour }}</td>
+                <td>{{ taInfo.office_number }}</td>
+                <td>{{ taInfo.office_location }}</td>
+            </tr>
+        {% elif instrInfo != None %}
+            <tr>
+                <td>{{ instrInfo.phone_number }}</td>
+                <td>{{ instrInfo.office_hour }}</td>
+                <td>{{ instrInfo.office_number }}</td>
+                <td>{{ instrInfo.office_location }}</td>
+            </tr>
+        {% endif %}
     </table>
 
 {% endblock %}

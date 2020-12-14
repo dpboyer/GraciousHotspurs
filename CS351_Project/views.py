@@ -52,9 +52,27 @@ class Account(View):
     def get(self, request):
         form = AccountForm()
         currentUser = request.user
-        currentTA = TA.objects.get(user=currentUser)
-        print(currentTA.phone_number, currentTA.office_hour, currentTA.office_number, currentTA.office_location)
-        return render(request, "account.html", {"form": form, "taInfo": currentTA})
+
+        # initialize currentTA and currentInstr
+        currentTA = TA()
+        currentInstr = Instructor()
+
+        # vvv determines which info needs to display, either TA or Instructor
+            # get current User's TA object
+        try:
+            currentTA = TA.objects.get(user=currentUser)
+        except TA.DoesNotExist:
+            currentTA = None
+
+        # look for Instructor object, if there was no TA
+        if currentTA is None:
+            # get current User's Instructor object
+            try:
+                currentInstr = Instructor.objects.get(user=currentUser)
+            except Instructor.DoesNotExist:
+                currentInstr = None
+
+        return render(request, "account.html", {"form": form, "taInfo": currentTA, "instrInfo": currentInstr})
 
     def post(self, request):
         form = AccountForm(request.POST)
@@ -65,23 +83,49 @@ class Account(View):
             number = form.cleaned_data['office_number']
             location = form.cleaned_data['office_location']
 
-            # retrieves TA object of current User
             currentUser = request.user
-            currentTA = TA.objects.get(user=currentUser)
 
-            # guarantees that current values are NOT changed if no new value entered in a field
-            if self.field_not_empty(phone):
-                currentTA.phone_number = phone
-            if self.field_not_empty(hours):
-                currentTA.office_hour = hours
-            if self.field_not_empty(number):
-                currentTA.office_number = number
-            if self.field_not_empty(location):
-                currentTA.office_location = location
+            # initialize currentTA and currentInstr
+            currentTA = TA()
+            currentInstr = Instructor()
 
-            currentTA.save()
+            # vvv determines which info needs to be edited or displayed, either TA or Instructor
+            try:
+                currentTA = TA.objects.get(user=currentUser)
 
-            return render(request, 'account.html', {"form": form, "taInfo": currentTA})
+                # guarantees that current values are NOT changed if its corresponding field is left empty
+                if self.field_not_empty(phone):
+                    currentTA.phone_number = phone
+                if self.field_not_empty(hours):
+                    currentTA.office_hour = hours
+                if self.field_not_empty(number):
+                    currentTA.office_number = number
+                if self.field_not_empty(location):
+                    currentTA.office_location = location
+
+                currentTA.save()
+            except TA.DoesNotExist:
+                currentTA = None
+
+            if currentTA is None:
+                try:
+                    currentInstr = Instructor.objects.get(user=currentUser)
+
+                    # guarantees that current values are NOT changed if its corresponding field is left empty
+                    if self.field_not_empty(phone):
+                        currentInstr.phone_number = phone
+                    if self.field_not_empty(hours):
+                        currentInstr.office_hour = hours
+                    if self.field_not_empty(number):
+                        currentInstr.office_number = number
+                    if self.field_not_empty(location):
+                        currentInstr.office_location = location
+
+                    currentInstr.save()
+                except Instr.DoesNotExist:
+                    currentInstr = None
+
+            return render(request, 'account.html', {"form": form, "taInfo": currentTA, "instrInfo": currentInstr})
         else:
             return render(request, 'account.html', {"form": form})
 
