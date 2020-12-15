@@ -41,7 +41,30 @@ class Login(View):
 @method_decorator(decorators, name='get')
 class Home(View):
     def get(self, request):
-        return render(request, "home2.html", {})
+        currentUser = request.user
+
+        # initialize currentTA and currentInstr
+        currentTA = TA()
+        currentInstr = Instructor()
+        currentSections = Section()
+        currentCourses = Course()
+
+        try:
+            currentTA = TA.objects.get(user=currentUser)
+            currentSections = Section.objects.filter(teachingAssistant=currentTA)
+        except TA.DoesNotExist:
+            currentTA = None
+
+        if currentTA is None:
+            # get current User's Instructor object
+            try:
+                currentInstr = Instructor.objects.get(user=currentUser)
+                currentCourses = Course.objects.filter(instructor=currentInstr)
+            except Instructor.DoesNotExist:
+                currentInstr = None
+
+        return render(request, "home2.html", {"ta": currentTA, "instr": currentInstr,
+            "courses": currentCourses, "sections": currentSections})
 
     def post(self, request):
         return render(request, "home2.html", {})
