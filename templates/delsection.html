@@ -3,16 +3,42 @@
 {% block title %}Courses{% endblock %}
 
 {% block content %}
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+              rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <style>
+            .test {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
 
-    <form method="post">
-        You can delete and view sections here...
-        <table>
-            {{ form.as_table }}
-        </table>
-        {% csrf_token %}
-        <input type="submit", name="delsection", value="Delete">
-    </form>
+            .pad {
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+        </style>
+    </head>
+    <div class="container-fluid">
+        <form method="post">
+            You can delete and view sections here...
 
+            <div class="form-group row pad">
+                    <label for="id_section_number" class="col-sm-2 col-form-label">Delete Section Number</label>
+                    <div class="col-sm-10">
+                        <div class="md-form mt-0">
+                            {{ form.section_number }}
+                        </div>
+                    </div>
+                </div>
+            <div class="form-group row pad">
+                <div class="col-sm-10">
+                    <input class="btn btn-primary btn-block mt-4" type="submit", name="delsection", value="Delete"/>
+                </div>
+            </div>
+            {% csrf_token %}
+
+        </form>
+    </div>
     <br/>
 
     <table>

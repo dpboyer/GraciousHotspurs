@@ -3,17 +3,61 @@
 {% block title %}Courses{% endblock %}
 
 {% block content %}
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+              rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <style>
+            .test {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
 
-    <form method="post">
-        You can add and view courses here...
-        <table>
-            {{ form.as_table }}
-        </table>
-        {% csrf_token %}
-        <input type="submit", name="addCourse">
-    </form>
-    <br/>
+            .pad {
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+        </style>
+    </head>
+    <div class="container-fluid">
+        <form method="post">
+            You can add and view courses here...
+            <br>
+            <div class="form-group row pad">
+                <label for="id_office_hours" class="col-sm-2 col-form-label">Instructor</label>
+                <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                        {{ form.instructor}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pad">
+                <label for="id_department" class="col-sm-2 col-form-label">Department</label>
+                <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                        {{ form.department }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pad">
+                <label for="id_course_number" class="col-sm-2 col-form-label">Course Number</label>
+                <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                        {{ form.course_number}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pad">
+                <div class="col-sm-10">
+                    <input class="btn btn-primary btn-block mt-4" type="submit", name="addCourse"/>
+                </div>
+            </div>
 
+            {% csrf_token %}
+
+        </form>
+    </div>
+
+    <br>
     <table>
         <tr>
             <th>Department</th>

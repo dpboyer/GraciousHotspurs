@@ -3,16 +3,75 @@
 {% block title %}Add User{% endblock %}
 
 {% block content %}
+    <head>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+              rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+        <style>
+            .test {
+                margin-left: 20px;
+                margin-right: 20px;
+            }
 
-    <form method="post">
-        You can add and view users here...
-        <table>
-            {{ form.as_table }}
-        </table>
-        {% csrf_token %}
-        <input type="submit", name="selection", value ="Add as Instructor">
-        <input type="submit", name="selection" value ="Add as TA">
-    </form>
+            .pad {
+                padding-top: 5px;
+                padding-bottom: 5px;
+            }
+        </style>
+    </head>
+
+    <div class="container-fluid">
+        <form method="post">
+            You can add and view users here...
+            <div class="form-group row pad">
+                <label for="id_username" class="col-sm-2 col-form-label">Username</label>
+                <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                        {{ form.username }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pad">
+                <label for="id_password" class="col-sm-2 col-form-label">Password</label>
+                <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                        {{ form.password}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pad">
+                <label for="id_first_name" class="col-sm-2 col-form-label">First Name</label>
+                <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                        {{ form.first_name }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pad">
+                <label for="id_last_name" class="col-sm-2 col-form-label">Last Name</label>
+                <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                        {{ form.last_name }}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pad">
+                <label for="id_email" class="col-sm-2 col-form-label">Email</label>
+                <div class="col-sm-10">
+                    <div class="md-form mt-0">
+                        {{ form.email}}
+                    </div>
+                </div>
+            </div>
+            <div class="form-group row pad">
+                <div class="col-sm-10">
+                    <input class="btn btn-primary btn-block mt-4" name="selection", value ="Add as Instructor">
+                    <input class="btn btn-primary btn-block mt-4" name="selection", value ="Add as TA">
+                </div>
+            </div>
+            {% csrf_token %}
+
+        </form>
+    </div>
     <br/>
 
     <h3>All Users:</h3>
