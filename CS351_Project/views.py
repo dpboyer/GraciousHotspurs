@@ -50,6 +50,8 @@ class Home(View):
 @method_decorator(decorators, name='get')
 class Account(View):
     def get(self, request):
+        if request.user.is_superuser:
+            return redirect("/home/")
         form = AccountForm()
         currentUser = request.user
 
@@ -139,6 +141,8 @@ class Account(View):
 @method_decorator(decorators, name='get')
 class AddUser(View):
     def get(self, request):
+        if not request.user.is_superuser:
+            return redirect("/home/")
         form = UserForm()
         users = User.objects.all()
         instructors = Instructor.objects.all()
@@ -184,6 +188,8 @@ class AddUser(View):
 @method_decorator(decorators, name='get')
 class Courses(View):
     def get(self, request):
+        if not request.user.is_superuser:
+            return redirect("/home/")
         form = CoursesForm()
         courses = Course.objects.all()
         return render(request, 'courses.html', {"form": form, "courses": courses})
@@ -210,6 +216,8 @@ class Courses(View):
 @method_decorator(decorators, name='get')
 class DelCourse(View):
     def get(self, request):
+        if not request.user.is_superuser:
+            return redirect("/home/")
         form = CoursesDeleteForm()
         courses = Course.objects.all()
         return render(request, 'delcourse.html', {"form": form, "courses": courses})
@@ -232,6 +240,8 @@ class DelCourse(View):
 @method_decorator(decorators, name='get')
 class Sections(View):
     def get(self, request):
+        if not request.user.is_superuser:
+            return redirect("/home/")
         form = SectionsForm()
         sections = Section.objects.all()
         return render(request, 'sections.html', {"form": form, "sections": sections})
@@ -258,6 +268,8 @@ class Sections(View):
 @method_decorator(decorators, name='get')
 class DelSection(View):
     def get(self, request):
+        if not request.user.is_superuser:
+            return redirect("/home/")
         form = SectionsDeleteForm()
         sections = Section.objects.all()
         return render(request, 'delsection.html', {"form": form, "sections": sections})
