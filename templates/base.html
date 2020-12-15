@@ -31,27 +31,41 @@
                     <li>
                         <a href="/home">Home</a>
                     </li>
-                    <li>
-                        <a href="/adduser">Add User</a>
-                    </li>
-                    <li>
-                        <a href="/deleteuser">Delete User</a>
-                    </li>
-                    <li>
-                        <a href="/courses">Courses</a>
-                    </li>
-                    <li>
-                        <a href="/delcourse">Delete Course</a>
-                    </li>
-                    <li>
-                        <a href="/sections">Sections</a>
-                    </li>
-                    <li>
-                        <a href="/delsection">Delete Section</a>
-                    </li>
-                    <li>
-                        <a href="/account">Account</a>
-                    </li>
+                    {% if user.is_superuser %}
+                        <li>
+                            <a href="/adduser">Add User</a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <li>
+                            <a href="/deluser">Delete User</a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <li>
+                            <a href="/courses">Add Course</a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <li>
+                            <a href="/delcourse">Delete Course</a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <li>
+                            <a href="/sections">Add Section</a>
+                        </li>
+                    {% endif %}
+                    {% if user.is_superuser %}
+                        <li>
+                            <a href="/delsection">Delete Section</a>
+                        </li>
+                    {% endif %}
+                    {% if not user.is_superuser %}
+                        <li>
+                            <a href="/account">My Account</a>
+                        </li>
+                    {% endif %}
                     <li>
                         <a href="..">Logout</a>
                     </li>
