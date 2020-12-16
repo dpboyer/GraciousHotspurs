@@ -318,7 +318,11 @@ class Syllabus(View):
         return render(request, "syllabus.html", {'syllabus': syllabus_data})
 
     def get_syllabus(self, course, section):
-        course_instance = Course.objects.filter(course_num=course)
-        section_instance = Section.objects.filter(section_num=section, course=course_instance)
-        return {'found': False}
+        course_instance = Course.objects.get(course_num=course)
+        section_instance = Section.objects.get(section_num=section, course=course_instance)
+        personal_info = {
+            'instructors_info': course_instance.get_instructor_personal_info(),
+            'teachingAssistantInfo': section_instance.get_TA_personal_info()
+        }
+        return {'found': True, 'info': personal_info}
 
