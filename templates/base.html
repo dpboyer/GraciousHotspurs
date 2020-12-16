@@ -10,58 +10,36 @@
 <body>
   <main>
         <header>
-            <nav class="navbar sticky-top navbar-dark bg-dark">
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <a class="navbar-brand" href="#">D.E.A.T.H. S.T.A.R.</a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+
                     <ul class="navbar-nav">
                         {% if user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/home">Home</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
                         {% endif %}
                         {% if user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/adduser">Add User</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="/adduser">Add User</a></li>
                         {% endif %}
                         {% if user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/deluser">Delete User</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="/deluser">Delete User</a></li>
                         {% endif %}
                         {% if user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/courses">Add Course</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="/courses">Add Course</a></li>
                         {% endif %}
                         {% if user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/delcourse">Delete Course</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="/delcourse">Delete Course</a></li>
                         {% endif %}
                         {% if user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/sections">Add Section</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="/sections">Add Section</a></li>
                         {% endif %}
                         {% if user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/delsection">Delete Section</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="/delsection">Delete Section</a></li>
                         {% endif %}
                         {% if not user.is_superuser %}
-                            <li class="nav-item">
-                                <a class="nav-link" href="/account">Account</a>
-                            </li>
+                            <li class="nav-item"><a class="nav-link" href="/account">Account</a></li>
                         {% endif %}
-                        <li class="nav-item">
-                            <a class="nav-link" href="..">Logout</a>
-                        </li>
+                        <li class="nav-item"><a class="nav-link" href="..">Logout</a></li>
                     </ul>
-                </div>
             </nav>
         </header>
     <br>
