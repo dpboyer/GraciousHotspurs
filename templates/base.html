@@ -1,80 +1,76 @@
 <!DOCTYPE html>
 <html>
 <head>
+    {%  load static %}
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
   <meta charset="utf-8">
   <title>{% block title %}Django Auth Tutorial{% endblock %}</title>
-    <style>
-        ul {
-          list-style-type: none;
-          margin: 0;
-          padding: 0;
-        }
-        header * {
-            display: inline;
-        }
-        header li {
-            margin: 5px;
-        }
-        table {
-            width: 25%;
-        }
-        th {
-            text-align: left;
-        }
-    </style>
+
 </head>
 <body>
   <main>
-    <header>
-            <nav>
-                <ul>
-                    <li>
-                        <a href="/home">Home</a>
-                    </li>
-                    {% if user.is_superuser %}
-                        <li>
-                            <a href="/adduser">Add User</a>
+        <header>
+            <nav class="navbar sticky-top navbar-dark bg-dark">
+                <a class="navbar-brand" href="#">D.E.A.T.H. S.T.A.R.</a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+                    <ul class="navbar-nav">
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/home">Home</a>
+                            </li>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/adduser">Add User</a>
+                            </li>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/deluser">Delete User</a>
+                            </li>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/courses">Add Course</a>
+                            </li>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/delcourse">Delete Course</a>
+                            </li>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/sections">Add Section</a>
+                            </li>
+                        {% endif %}
+                        {% if user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/delsection">Delete Section</a>
+                            </li>
+                        {% endif %}
+                        {% if not user.is_superuser %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="/account">Account</a>
+                            </li>
+                        {% endif %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="..">Logout</a>
                         </li>
-                    {% endif %}
-                    {% if user.is_superuser %}
-                        <li>
-                            <a href="/deluser">Delete User</a>
-                        </li>
-                    {% endif %}
-                    {% if user.is_superuser %}
-                        <li>
-                            <a href="/courses">Add Course</a>
-                        </li>
-                    {% endif %}
-                    {% if user.is_superuser %}
-                        <li>
-                            <a href="/delcourse">Delete Course</a>
-                        </li>
-                    {% endif %}
-                    {% if user.is_superuser %}
-                        <li>
-                            <a href="/sections">Add Section</a>
-                        </li>
-                    {% endif %}
-                    {% if user.is_superuser %}
-                        <li>
-                            <a href="/delsection">Delete Section</a>
-                        </li>
-                    {% endif %}
-                    {% if not user.is_superuser %}
-                        <li>
-                            <a href="/account">My Account</a>
-                        </li>
-                    {% endif %}
-                    <li>
-                        <a href="..">Logout</a>
-                    </li>
-                </ul>
+                    </ul>
+                </div>
             </nav>
-    </header>
+        </header>
     <br>
+
     {% block content %}
     {% endblock %}
   </main>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
 </html>
