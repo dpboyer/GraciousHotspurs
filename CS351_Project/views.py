@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .forms import UserForm, CoursesForm, CoursesDeleteForm, SectionsForm, SectionsDeleteForm, AccountForm
+from .forms import UserForm, UsersDeleteForm, CoursesForm, CoursesDeleteForm, SectionsForm, SectionsDeleteForm, AccountForm
 from .models import Instructor, Course, Section, TA
 
 # Create your views here.
@@ -205,6 +205,36 @@ class AddUser(View):
                                                     "teachingAssistants": tas})
         else:
             return render(request, 'adduser.html', {"form": form})
+
+
+@method_decorator(decorators, name='get')
+class DelUser(View):
+    def get(self, request):
+        if not request.user.is_superuser:
+            return redirect("/home/")
+        form = UsersDeleteForm()
+        users = User.objects.all()
+        instructors = Instructor.objects.all()
+        tas = TA.objects.all()
+        return render(request, 'deluser.html', {"form": form, "users": users, "instructors": instructors,
+                                                    "teachingAssistants": tas})
+
+    def post(self, request):
+        form = UsersDeleteForm(request.POST)
+        if form.is_valid():
+            # assigns field data from form to variables
+            user_to_delete = form.cleaned_data['user_to_delete']
+
+            # deletes selected course and displays updated list
+            user_to_delete.delete()
+            users = User.objects.all()
+            instructors = Instructor.objects.all()
+            tas = TA.objects.all()
+            return render(request, 'deluser.html', {"form": form, "users": users, "instructors": instructors,
+                                                    "teachingAssistants": tas})
+
+        else:
+            return render(request, 'delcourse.html', {"form": form})
 
 
 # vvv Referenced: https://www.educba.com/django-forms/

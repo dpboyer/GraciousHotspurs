@@ -1,5 +1,6 @@
 from django import forms
 from .models import Course, Section, Instructor, TA
+from django.contrib.auth.models import User
 
 
 class CoursesForm(forms.Form):
@@ -93,6 +94,12 @@ class UserForm(forms.Form):
                                 }
                             )
                             )
+
+
+class UsersDeleteForm(forms.Form):
+    user_to_delete = forms.ModelChoiceField(queryset=User.objects.all(),
+                                            widget=forms.Select(attrs={'class': 'form-select', })
+                                )
 
 
 class AccountForm(forms.Form):
