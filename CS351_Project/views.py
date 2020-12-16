@@ -23,8 +23,8 @@ class Login(View):
 
     # vvv Referenced: https://stackoverflow.com/questions/38771004/how-to-create-separate-login-for-admin-and-user-in-django
     def post(self, request):
-        username = request.POST["name"]
-        password = request.POST["password"]
+        username = request.POST.get("name", "")
+        password = request.POST.get("password", "")
         user = authenticate(request, username=username, password=password)
         if user is not None:
             # login succeeds, redirects to homepage
