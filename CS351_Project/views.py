@@ -4,7 +4,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.utils.decorators import method_decorator
-from .forms import UserForm, CoursesForm, CoursesDeleteForm, SectionsForm, SectionsDeleteForm, AccountForm
+from .forms import UserForm, UsersDeleteForm, CoursesForm, CoursesDeleteForm, SectionsForm, SectionsDeleteForm, AccountForm
 from .models import Instructor, Course, Section, TA
 
 # Create your views here.
@@ -207,6 +207,36 @@ class AddUser(View):
             return render(request, 'adduser.html', {"form": form})
 
 
+@method_decorator(decorators, name='get')
+class DelUser(View):
+    def get(self, request):
+        if not request.user.is_superuser:
+            return redirect("/home/")
+        form = UsersDeleteForm()
+        users = User.objects.all()
+        instructors = Instructor.objects.all()
+        tas = TA.objects.all()
+        return render(request, 'deluser.html', {"form": form, "users": users, "instructors": instructors,
+                                                    "teachingAssistants": tas})
+
+    def post(self, request):
+        form = UsersDeleteForm(request.POST)
+        if form.is_valid():
+            # assigns field data from form to variables
+            user_to_delete = form.cleaned_data['user_to_delete']
+
+            # deletes selected course and displays updated list
+            user_to_delete.delete()
+            users = User.objects.all()
+            instructors = Instructor.objects.all()
+            tas = TA.objects.all()
+            return render(request, 'deluser.html', {"form": form, "users": users, "instructors": instructors,
+                                                    "teachingAssistants": tas})
+
+        else:
+            return render(request, 'delcourse.html', {"form": form})
+
+
 # vvv Referenced: https://www.educba.com/django-forms/
 @method_decorator(decorators, name='get')
 class Courses(View):
@@ -318,7 +348,11 @@ class Syllabus(View):
         return render(request, "syllabus.html", {'syllabus': syllabus_data})
 
     def get_syllabus(self, course, section):
-        course_instance = Course.objects.filter(course_num=course)
-        section_instance = Section.objects.filter(section_num=section, course=course_instance)
-        return {'found': False}
+        course_instance = Course.objects.get(course_num=course)
+        section_instance = Section.objects.get(section_num=section, course=course_instance)
+        personal_info = {
+            'instructors_info': course_instance.get_instructor_personal_info(),
+            'teachingAssistantInfo': section_instance.get_TA_personal_info()
+        }
+        return {'found': True, 'info': personal_info}
 
