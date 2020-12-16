@@ -4,6 +4,25 @@
 
 {% block content %}
 
-    Hello {{ user.username }}, this is the homepage.
+    Hi, {{ user.username }}! This is the homepage.
+    {% if ta != None %}
+        <h3>Your Sections:</h3>
+        <table>
+        {% for i in sections %}
+                <tr>
+                   <td>{{ i }}
+                </tr>
+        {% endfor %}
+        </table>
 
+    {% elif instr != None %}
+        <h3>Your Courses:</h3>
+        <table>
+        {% for i in courses %}
+                <tr>
+                    <td>{{ i }}</td>
+                </tr>
+        {% endfor %}
+        </table>
+    {% endif %}
 {% endblock %}
