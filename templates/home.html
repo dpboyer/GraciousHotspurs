@@ -4,7 +4,13 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
+    <div class="jumbotron jumboptron-fluid">
+        <div class="container">
+            <h5 class="display-4">Hi {{ user.username }}!</h5>
+            <hr class="my-4">
+            <h3 class="display-4">Now witness the file power of this fully armed and operational syllabus application</h3>
+        </div>
+    </div>
     <p><a href="{% url 'logout' %}">Log Out</a></p>
 {% else %}
   <p>You are not logged in</p>

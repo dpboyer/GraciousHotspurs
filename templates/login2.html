@@ -4,16 +4,17 @@
 <head>
     {% load static %}
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/custom-style.css">
     <meta charset="UTF-8">
     <title>Title</title>
 </head>
 <body>
+<div class="view" style="background-image: url('../CS351_Project/Images/DS_BKGRND.png'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
 <div class="container">
     <div class="row">
       <div class="col-sm-9 col-md-7 col-lg-5 mx-auto">
         <div class="card card-signin my-5">
             <div class="card-body">
-            <img src="Images/Death Star.png" class="mr-3" alt="">
                 <h5 class="card-title text-center">D.E.A.T.H. S.T.A.R.</h5>
                 <form action="/" method="post">
                     {% csrf_token %}
@@ -46,6 +47,7 @@
         </div>
       </div>
     </div>
+</div>
 </div>
 </body>
 </html>

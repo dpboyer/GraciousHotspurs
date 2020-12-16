@@ -3,8 +3,13 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-
-    Hi, {{ user.username }}! This is the homepage.
+  <div class="jumbotron ml-5 mr-5">
+        <div class="container">
+            <h5 class="display-4">Hi {{ user.username }}!</h5>
+            <hr class="my-4">
+            <p class="lead">Now witness the file power of this fully armed and operational syllabus application</p>
+        </div>
+    </div>
     {% if ta != None %}
         <h3>Your Sections:</h3>
         <table>
