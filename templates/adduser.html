@@ -7,78 +7,66 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
               rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <style>
-            .test {
-                margin-left: 20px;
-                margin-right: 20px;
-            }
 
-            .pad {
-                padding-top: 5px;
-                padding-bottom: 5px;
-            }
         </style>
     </head>
 
-<div class="card border-secondary text-center mr-5 ml-5">
-    <h5 class="card-header">
-        Add User
-    </h5>
+    <div class="card border-secondary text-center mr-5 ml-5 bg-light">
+        <h5 class="card-header">Add User</h5>
         <div class="card-body">
-        <form method="post">
-            <div class="form-group row pad">
-                <label for="id_username" class="col-sm-5 col-form-label">Username</label>
-                <div class="col-sm-5">
-                    <div class="md-form mt-0">
-                        {{ form.username }}
+            <form method="post">
+                <div class="form-group row pad">
+                    <label for="id_username" class="col-sm-5 col-form-label">Username</label>
+                    <div class="col-sm-5">
+                        <div class="md-form mt-0">
+                            {{ form.username }}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group row pad">
-                <label for="id_password" class="col-sm-5 col-form-label">Password</label>
-                <div class="col-sm-5">
-                    <div class="md-form mt-0">
-                        {{ form.password}}
+                <div class="form-group row pad">
+                    <label for="id_password" class="col-sm-5 col-form-label">Password</label>
+                    <div class="col-sm-5">
+                        <div class="md-form mt-0">
+                            {{ form.password}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group row pad">
-                <label for="id_first_name" class="col-sm-5 col-form-label">First Name</label>
-                <div class="col-sm-5">
-                    <div class="md-form mt-0">
-                        {{ form.first_name }}
+                <div class="form-group row pad">
+                    <label for="id_first_name" class="col-sm-5 col-form-label">First Name</label>
+                    <div class="col-sm-5">
+                        <div class="md-form mt-0">
+                            {{ form.first_name }}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group row pad">
-                <label for="id_last_name" class="col-sm-5 col-form-label">Last Name</label>
-                <div class="col-sm-5">
-                    <div class="md-form mt-0">
-                        {{ form.last_name }}
+                <div class="form-group row pad">
+                    <label for="id_last_name" class="col-sm-5 col-form-label">Last Name</label>
+                    <div class="col-sm-5">
+                        <div class="md-form mt-0">
+                            {{ form.last_name }}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="form-group row pad">
-                <label for="id_email" class="col-sm-5 col-form-label">Email</label>
-                <div class="col-sm-5">
-                    <div class="md-form mt-0">
-                        {{ form.email}}
+                <div class="form-group row pad">
+                    <label for="id_email" class="col-sm-5 col-form-label">Email</label>
+                    <div class="col-sm-5">
+                        <div class="md-form mt-0">
+                            {{ form.email}}
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col text-center">
-                <input class="btn btn-dark" name="selection", value ="Add as Instructor">
-                <input class="btn btn-dark" name="selection", value ="Add as TA">
-            </div>
-            {% csrf_token %}
-        </form>
+                <div class="col text-center">
+                    <input class="btn btn-dark" name="selection", value ="Add as Instructor">
+                    <input class="btn btn-dark" name="selection", value ="Add as TA">
+                </div>
+                {% csrf_token %}
+            </form>
         </div>
     </div>
     <br/>
 
     <div class="card border-secondary text-center mr-5 ml-5">
-        <h5 class="card-header">
-            All Users
-        </h5>
+        <h5 class="card-header">All Users</h5>
         <table class="table table-hover">
             <thead class="thead-dark">
                 <tr>
@@ -89,78 +77,78 @@
                     <th scope="col">Email</th>
                 </tr>
             </thead>
-        <tbody>
-            {% for i in users %}
-                <tr>
-                    <td>{{ i.username }}</td>
-                    <td>******</td>
-                    <td>{{ i.first_name }}</td>
-                    <td>{{ i.last_name }}</td>
-                    <td>{{ i.email }}</td>
-                </tr>
-            {% endfor %}
-        </tbody>
+            <tbody>
+                {% for i in users %}
+                    <tr class="table-secondary">
+                        <td>{{ i.username }}</td>
+                        <td>******</td>
+                        <td>{{ i.first_name }}</td>
+                        <td>{{ i.last_name }}</td>
+                        <td>{{ i.email }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
         </table>
     </div>
     <br>
     <div class="row">
-    <div class="col-sm-6">
-    <div class="card border-secondary text-center mr-2 ml-5">
-        <h5 class="card-header">
-            Instructors
-        </h5>
-        <table class="table table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">User</th>
-                    <th scope="col">Phone #</th>
-                    <th scope="col">Office Hours</th>
-                    <th scope="col">Office #</th>
-                    <th scope="col">Office Location</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in instructors %}
-                    <tr>
-                        <td>{{ i.user }}</td>
-                        <td>{{ i.phone_number }}</td>
-                        <td>{{ i.office_hour }}</td>
-                        <td>{{ i.office_number }}</td>
-                        <td>{{ i.office_location }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    </div>
-    <div class="col-sm-6">
-    <div class="card border-secondary text-center mr-5 ml-2">
-        <h5 class="card-header">
-            Teachers Assistants
-        </h5>
-        <table class="table table-hover">
-            <thead class="thead-dark">
-                <tr>
-                    <th scope="col">User</th>
-                    <th scope="col">Phone #</th>
-                    <th scope="col">Office Hours</th>
-                    <th scope="col">Office #</th>
-                    <th scope="col">Office Location</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for i in teachingAssistants %}
-                    <tr>
-                        <td>{{ i.user }}</td>
-                        <td>{{ i.phone_number }}</td>
-                        <td>{{ i.office_hour }}</td>
-                        <td>{{ i.office_number }}</td>
-                        <td>{{ i.office_location }}</td>
-                    </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-    </div>
-    </div>
+        <div class="col-sm-6">
+            <div class="card border-secondary text-center mr-2 ml-5">
+                <h5 class="card-header">
+                    Instructors
+                </h5>
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">User</th>
+                            <th scope="col">Phone #</th>
+                            <th scope="col">Office Hours</th>
+                            <th scope="col">Office #</th>
+                            <th scope="col">Office Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in instructors %}
+                            <tr class="table-secondary">
+                                <td>{{ i.user }}</td>
+                                <td>{{ i.phone_number }}</td>
+                                <td>{{ i.office_hour }}</td>
+                                <td>{{ i.office_number }}</td>
+                                <td>{{ i.office_location }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card border-secondary text-center mr-5 ml-2">
+                <h5 class="card-header">
+                    Teachers Assistants
+                </h5>
+                <table class="table table-hover">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">User</th>
+                            <th scope="col">Phone #</th>
+                            <th scope="col">Office Hours</th>
+                            <th scope="col">Office #</th>
+                            <th scope="col">Office Location</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for i in teachingAssistants %}
+                            <tr class="table-secondary">
+                                <td>{{ i.user }}</td>
+                                <td>{{ i.phone_number }}</td>
+                                <td>{{ i.office_hour }}</td>
+                                <td>{{ i.office_number }}</td>
+                                <td>{{ i.office_location }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 {% endblock %}

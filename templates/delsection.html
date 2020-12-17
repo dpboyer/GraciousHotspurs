@@ -20,7 +20,6 @@
     </head>
     <div class="container-fluid">
         <form method="post">
-        <br>
         <div class="card border-secondary text-center mr-5 ml-5">
             <h5 class="card-header">
                 Delete Section
@@ -34,7 +33,7 @@
                             {{ form.section_number }}
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col text-center">
                         <input class="btn btn-dark btn-block ml-3" type="submit", name="delsection", value="Delete"/>
                     </div>
                 </div>
@@ -45,7 +44,7 @@
     </div>
     <br>
     <br>
-    <div class="card border-secondary text-center mr-5 ml-5">
+    <div class="card border-secondary text-center mr-5 ml-5 ">
         <h5 class="card-header">
             List of Sections
         </h5>
@@ -60,7 +59,7 @@
                 </thead>
                 <tbody>
                     {% for i in sections %}
-                        <tr>
+                        <tr class="table-secondary">
                             <td>{{ i.course }}</td>
                             <td>{{ i.section_num }}</td>
                             <td>{{ i.teachingAssistant }}</td>
