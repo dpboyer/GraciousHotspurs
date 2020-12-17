@@ -7,50 +7,36 @@
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
               rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
         <style>
-            .test {
-                margin-left: 20px;
-                margin-right: 20px;
-            }
-
-            .pad {
-                padding-top: 5px;
-                padding-bottom: 5px;
-            }
         </style>
     </head>
-    <div class="container-fluid">
-        <form method="post">
-            <br>
-        <div class="card border-secondary text-center mr-5 ml-5">
-            <h5 class="card-header">
-                Delete Course
-            </h5>
-            <div class="card-body">
-                <br>
-                <div class="form-group row pad">
-                    <label for="id_course_number" class="col-sm-3 col-form-label">Delete Course Number</label>
-                    <div class="col-sm-4">
-                        <div class="md-form mt-0">
-                            {{ form.course_number }}
+
+
+
+    <div class="card border-secondary text-center mr-5 ml-5">
+        <h5 class="card-header">Delete Course</h5>
+        <div class="card-body">
+            <form method="post">
+                    <div class="form-group row pad">
+                        <label for="id_course_number" class="col-sm-3 col-form-label">Delete Course Number</label>
+                        <div class="col-sm-5">
+                            <div class="md-form mt-0">
+                                {{ form.course_number }}
+                            </div>
                         </div>
                     </div>
-                    <div class="col-sm-3">
-                        <input class="btn btn-dark btn-block ml-3" type="submit", name="submit", value="Delete"/>
-                    </div>
+                <div class="col text center">
+                    <input class="btn btn-dark " type="submit", name="submit", value="Delete"/>
                 </div>
-
-            {% csrf_token %}
-
-        </form>
+                {% csrf_token %}
+            </form>
+        </div>
     </div>
-    </div>
+
     <br>
     <br>
-<div class="card border-secondary text-center mr-5 ml-5">
-            <h5 class="card-header">
-                List of Courses
-            </h5>
-            <div class="card-body">
+    <div class="card border-secondary text-center mr-5 ml-5">
+        <h5 class="card-header">All Courses</h5>
+        <div class="card-body">
                 <table class="table table-hover">
                     <thead class="thead-dark">
                         <tr>
@@ -61,7 +47,7 @@
                     </thead>
                     <tbody>
                         {% for i in courses %}
-                            <tr>
+                            <tr class="table-secondary">
                                 <td>{{ i.department }}</td>
                                 <td>{{ i.course_num }}</td>
                                 <td>{{ i.instructor }}</td>
@@ -69,7 +55,7 @@
                         {% endfor %}
                     </tbody>
                 </table>
-            </div>
-</div>
+        </div>
+    </div>
 
 {% endblock %}
