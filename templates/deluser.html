@@ -21,82 +21,117 @@
 
     <div class="container-fluid">
         <form method="post">
-            You can delete and view users here...
-            <div class="form-group row pad">
-                <label for="id_user_to_delete" class="col-sm-2 col-form-label">User To Delete</label>
-                <div class="col-sm-10">
-                    <div class="md-form mt-0">
-                        {{ form.user_to_delete }}
-                    </div>
+            <br>
+            <div class="card border-secondary text-center mr-5 ml-5">
+                <h5 class="card-header">
+                    Delete User
+                </h5>
+                <div class="card-body">
+                    <br>
+                        <div class="form-group row pad">
+                            <label for="id_user_to_delete" class="col-sm-3 col-form-label">User To Delete</label>
+                            <div class="col-sm-4">
+                                <div class="md-form mt-0">
+                                    {{ form.user_to_delete }}
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="btn btn-dark btn-block ml-3" type="submit", name="submit", value="Delete"/>
+                            </div>
+                        </div>
+                {% csrf_token %}
                 </div>
             </div>
-            <div class="form-group row pad">
-                <div class="col-sm-10">
-                    <input class="btn btn-primary btn-block mt-4" type="submit", name="submit", value="Delete"/>
-                </div>
-            {% csrf_token %}
         </form>
     </div>
-    <br/>
-
-    <h3>All Users:</h3>
-    <table>
-        <tr>
-            <th>Username</th>
-            <th>Password</th>
-            <th>First</th>
-            <th>Last</th>
-            <th>Email</th>
-        </tr>
-        {% for i in users %}
-            <tr>
-                <td>{{ i.username }}</td>
-                <td>******</td>
-                <td>{{ i.first_name }}</td>
-                <td>{{ i.last_name }}</td>
-                <td>{{ i.email }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <h3>Instructors:</h3>
-    <table style="width:40%">
-        <tr>
-            <th>User</th>
-            <th>Phone #</th>
-            <th>Office Hours</th>
-            <th>Office #</th>
-            <th>Office Location</th>
-        </tr>
-        {% for i in instructors %}
-            <tr>
-                <td>{{ i.user }}</td>
-                <td>{{ i.phone_number }}</td>
-                <td>{{ i.office_hour }}</td>
-                <td>{{ i.office_number }}</td>
-                <td>{{ i.office_location }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
-    <h3>Teaching Assistants:</h3>
-    <table style="width:40%">
-        <tr>
-            <th>User</th>
-            <th>Phone #</th>
-            <th>Office Hours</th>
-            <th>Office #</th>
-            <th>Office Location</th>
-        </tr>
-        {% for i in teachingAssistants %}
-            <tr>
-                <td>{{ i.user }}</td>
-                <td>{{ i.phone_number }}</td>
-                <td>{{ i.office_hour }}</td>
-                <td>{{ i.office_number }}</td>
-                <td>{{ i.office_location }}</td>
-            </tr>
-        {% endfor %}
-    </table>
-
+    <br>
+    <br>
+    <div class="card border-secondary text-center mr-5 ml-5">
+        <h5 class="card-header">
+            All Users
+        </h5>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">Password</th>
+                    <th scope="col">First</th>
+                    <th scope="col">Last</th>
+                    <th scope="col">Email</th>
+                </tr>
+            </thead>
+        <tbody>
+            {% for i in users %}
+                <tr>
+                    <td>{{ i.username }}</td>
+                    <td>******</td>
+                    <td>{{ i.first_name }}</td>
+                    <td>{{ i.last_name }}</td>
+                    <td>{{ i.email }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+        </table>
+    </div>
+    <br>
+    <div class="row">
+    <div class="col-sm-6">
+    <div class="card border-secondary text-center mr-2 ml-5">
+        <h5 class="card-header">
+            Instructors
+        </h5>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">User</th>
+                    <th scope="col">Phone #</th>
+                    <th scope="col">Office Hours</th>
+                    <th scope="col">Office #</th>
+                    <th scope="col">Office Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in instructors %}
+                    <tr>
+                        <td>{{ i.user }}</td>
+                        <td>{{ i.phone_number }}</td>
+                        <td>{{ i.office_hour }}</td>
+                        <td>{{ i.office_number }}</td>
+                        <td>{{ i.office_location }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+    <div class="col-sm-6">
+    <div class="card border-secondary text-center mr-5 ml-2">
+        <h5 class="card-header">
+            Teachers Assistants
+        </h5>
+        <table class="table table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">User</th>
+                    <th scope="col">Phone #</th>
+                    <th scope="col">Office Hours</th>
+                    <th scope="col">Office #</th>
+                    <th scope="col">Office Location</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in teachingAssistants %}
+                    <tr>
+                        <td>{{ i.user }}</td>
+                        <td>{{ i.phone_number }}</td>
+                        <td>{{ i.office_hour }}</td>
+                        <td>{{ i.office_number }}</td>
+                        <td>{{ i.office_location }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    </div>
+    </div>
 {% endblock %}
