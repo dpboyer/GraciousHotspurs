@@ -14,9 +14,7 @@
                 <a class="navbar-brand" href="#">D.E.A.T.H. S.T.A.R.</a>
 
                     <ul class="navbar-nav">
-                        {% if user.is_superuser %}
                             <li class="nav-item"><a class="nav-link" href="/home">Home</a></li>
-                        {% endif %}
                         {% if user.is_superuser %}
                             <li class="nav-item"><a class="nav-link" href="/adduser">Add User</a></li>
                         {% endif %}
