@@ -29,7 +29,8 @@ urlpatterns = [
     path('sections/', Sections.as_view()),
     path('delsection/', DelSection.as_view()),
     path('account/', Account.as_view()),
-    path('syllabus/<int:course>/<int:section>', Syllabus.as_view())
+    path('syllabus/', Syllabus.as_view()),
+    path('syllabus/<int:course>/<int:section>', Syllabus.as_view()),
     #path('accounts/', include('django.contrib.auth.urls')),
     #path('', TemplateView.as_view(template_name='home.html'), name='home')
 ]

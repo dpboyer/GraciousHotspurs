@@ -342,14 +342,16 @@ class DelSection(View):
 
 class Syllabus(View):
     def get(self, request, *args, **kwargs):
+        if kwargs == {}:
+            return render(request, "syllabus.html", {'syllabus': 'make_list'})
         course_value = kwargs['course']
         section_value = kwargs['section']
-        syllabus_data = self.get_syllabus(course_value,section_value)
+        syllabus_data = self.get_syllabus_from_model(course_value, section_value)
         return render(request, "syllabus.html", {'syllabus': syllabus_data})
 
-    def get_syllabus(self, course, section):
-        course_instance = Course.objects.get(course_num=course)
-        section_instance = Section.objects.get(section_num=section, course=course_instance)
+    def get_syllabus_from_model(self, course, section):
+        course_instance = Course.get_instructor_by_course_num(course)
+        section_instance = Section.get_TA_by_course_and_section(course_instance, section)
         personal_info = {
             'instructors_info': course_instance.get_instructor_personal_info(),
             'teachingAssistantInfo': section_instance.get_TA_personal_info()

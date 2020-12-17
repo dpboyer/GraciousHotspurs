@@ -40,11 +40,12 @@ class Course(models.Model):
     department = models.CharField(max_length=20)
     course_num = models.CharField(max_length=3)
 
-    def get_instructor(self):
-        return self.instructor
+    @staticmethod
+    def get_instructor_by_course_num(course):
+        return Course.objects.get(course_num=course)
 
     def get_instructor_personal_info(self):
-        instructor = self.get_instructor()
+        instructor = self.instructor
         return instructor.get_personal_info()
 
     def __str__(self):
@@ -55,11 +56,12 @@ class Section(models.Model):
     course = models.ForeignKey(to="Course", on_delete=models.CASCADE)
     section_num = models.CharField(max_length=3)
 
-    def get_TA(self):
-        return self.teachingAssistant
+    @staticmethod
+    def get_TA_by_course_and_section(course, section):
+        return Section.objects.get(course=course, section_num=section)
 
     def get_TA_personal_info(self):
-        teachingAssistant = self.get_TA()
+        teachingAssistant = self.teachingAssistant
         return teachingAssistant.get_personal_info()
 
     def __str__(self):

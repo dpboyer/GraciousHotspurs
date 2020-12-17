@@ -1,3 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}Syllabus{% endblock %}
+{% block content %}
+    {% if syllabus == 'make_list' %}
+        list of syllabus
+        {% else %}
+    <div class="container-fluid">
+    <h1>Syllabus</h1>
+    <br>Instructor</br>
+    {% for key, value in syllabus.info.instructors_info.items %}
+        <li><span style="font-weight: bold" id="i_{{ key }}">{{ key }} :</span></span> <span id="t_{{ key }}_value">{{ value }}</span></li>
+    {% endfor %}
+    <br>Teaching Assistant</br>
+    {% for key, value in syllabus.info.teachingAssistantInfo.items %}
+        <li><span style="font-weight: bold" id="t_{{ key }}"_label>{{ key }} :</span> <span id="t_{{ key }}_value">{{ value }}</span></li>
+    {% endfor %}
 
+    </div>
+    {% endif %}
+{% endblock %}
