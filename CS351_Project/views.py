@@ -342,8 +342,7 @@ class DelSection(View):
 
 class Syllabus(View):
     def get(self, request, *args, **kwargs):
-        if kwargs == {}:
-            return render(request, "syllabus.html", {'syllabus': 'make_list'})
+
         course_value = kwargs['course']
         section_value = kwargs['section']
         syllabus_data = self.get_syllabus_from_model(course_value, section_value)
